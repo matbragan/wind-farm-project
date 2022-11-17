@@ -1,0 +1,19 @@
+{
+    "node1": {
+        "CatalogSource": {
+            "Name": "catalog_source",
+            "Database": "wind_farm_project",
+            "Table": "wind_farm_project"
+        }
+    },
+    "node2": {
+        "S3GlueParquetTarget": {
+            "Name": "s3_target",
+            "Inputs": [
+                "node1"
+            ],
+            "Path": "s3://wind-farm-project/datalake",
+            "Compression": "snappy"
+        }
+    }
+}
