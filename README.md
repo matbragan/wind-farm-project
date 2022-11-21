@@ -17,4 +17,20 @@ sudo apt install awscli
 ~~~
 For more information about the install visit the [documentation of AWS](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html).
 
-Use the command `aws --version` for certificated that you have the AWS CLI in your computer
+Use the command `aws --version` for certificated that you have the AWS CLI in your computer.
+
+Now we need to set up our access key, if you don't have a one yet, you can easily created using
+~~~shell
+aws iam create-access-key
+~~~
+The output was be some like this
+~~~json
+{
+    "AccessKey": {
+        "AccessKeyId": "...",
+        "Status": "Active",
+        "SecretAccessKey": "...",
+        "CreateDate": "2022-11-21T14:57:52+00:00"
+    }
+}
+~~~
