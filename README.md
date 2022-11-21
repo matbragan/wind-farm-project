@@ -1,12 +1,20 @@
 # wind-farm-project
 My first project in my GitHub and in my study carrier of Data Engineer, hope that you injoy 😄
 
-##
+## Overview
 
-Showing step by step, in this project I'll simulation a wind farm, with python scripts, and realize a streaming of data, capturing the power factor, temperature and hydraulic pressure of the wind turbines.
+With python scripts and AWS services I simulated a wind farm and created a data lake with streaming data of power factor, temperature and hydraulic pressure of the wind turbines.
 <br>
-This three metrics will be saves in the S3 (AWS) and posteriorly used in Athena (AWS).
-
-The diagram below shows the method used in the project.
+Below is the diagram of the work done.
 
 <img width="500em" src="diagram/png_diagram.png">
+
+## Step by step
+
+First of all we need to install the AWS CLI, for easy install you can just run the script below in your cmd
+~~~shell
+sudo apt install awscli
+~~~
+For more information about the install visit the [documentation of AWS](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html).
+
+Use the command `aws --version` for certificated that you have the AWS CLI in your computer
