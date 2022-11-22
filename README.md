@@ -126,5 +126,8 @@ aws glue get-job-runs --job-name wind_farm_project
 So now we have the parquet files in our prefix datalake in our bucket. <br>
 We can check using.
 ~~~sh
-aws s3 ls s3://<your_bucket_name>/datalake
+aws s3 ls s3://<your_bucket_name>/datalake/
 ~~~
+The output must be parquet files.
+
+It's done, now the data is all in parquet and ready to be use in Athena (or any datalake chosen by you).
