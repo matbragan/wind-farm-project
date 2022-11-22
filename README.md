@@ -105,6 +105,10 @@ With the crawler created we need to run it.
 ~~~sh
 aws glue start-crawler --name wind_farm_project
 ~~~
+For view your crawler and status of running, you can run the command
+~~~sh
+aws glue get-crawler --name wind_farm_project
+~~~
 So now we finally create our parquet files, so we can use in datalake. <br>
 For create your data in parquet we need create a job in Glue using.
 ~~~sh
