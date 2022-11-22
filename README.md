@@ -77,7 +77,8 @@ So now we have the necessary role for use the Kinesis Firehose, using the comman
 ~~~sh
 aws firehose create-delivery-stream --delivery-stream-name wind_farm_project --delivery-stream-type KinesisStreamAsSource --kinesis-stream-source-configuration KinesisStreamARN=arn:aws:kinesis:<your_region_name>:<your_account_id>:stream/wind_farm_project,RoleARN=arn:aws:iam::<your_account_id>:role/firehoseAdminRole --s3-destination-configuration BucketARN=arn:aws:s3:::<your_bucket_name>,RoleARN=arn:aws:iam::<your_account_id>:role/firehoseAdminRole,BufferingHints={IntervalInSeconds=60}
 ~~~
-If you are having error in this command, make sure that your ARN's are right. <br>
+If you are having error in this command, make sure that your ARN's are right.
+
 Now it'is time to run the python scripts in this repository, they will population our bucket with information about the wind turbines in wind farm. <br>
 After we run the python scripts and popular our bucket we need to transform this data in parquet data, for use in our datalake.
 <br><br>
@@ -94,7 +95,8 @@ So now we need the Glue crawler for create our catalog, but to do this we need c
 aws iam create-role --role-name glueAdminRole --assume-role-policy-document file://trustPolicyGlue.json
 aws iam attach-role-policy --role-name glueAdminRole --policy-arn arn:aws:iam::aws:policy/AdministratorAccess
 ~~~
-Using the trustPolicyGlue.json which is in the repository. <br>
+Using the trustPolicyGlue.json which is in the repository.
+
 Now we can create the crawler.
 ~~~sh
 aws glue create-crawler --name wind_farm_project --role arn:aws:iam::<your_account_id>:role/glueAdminRole --database-name wind_farm_project --targets S3Targets={Path=s3://<your_bucket_name>}
