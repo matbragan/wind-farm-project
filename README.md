@@ -78,8 +78,12 @@ So now we have the necessary role for use the Kinesis Firehose, using the comman
 aws firehose create-delivery-stream --delivery-stream-name wind_farm_project --delivery-stream-type KinesisStreamAsSource --kinesis-stream-source-configuration KinesisStreamARN=arn:aws:kinesis:<your_region_name>:<your_account_id>:stream/wind_farm_project,RoleARN=arn:aws:iam::<your_account_id>:role/firehoseAdminRole --s3-destination-configuration BucketARN=arn:aws:s3:::<your_bucket_name>,RoleARN=arn:aws:iam::<your_account_id>:role/firehoseAdminRole,BufferingHints={IntervalInSeconds=60}
 ~~~
 If you are having error in this command, make sure that your ARN's are right.
+<br><br>
 
-Now it'is time to run the python scripts in this repository, they will population our bucket with information about the wind turbines in wind farm. <br>
+### Python scripts
+
+Now it'is time to run the python scripts who are in this repository, they will population our bucket with information about the wind turbines in wind farm. <br>
+`boto3` is necessary to run the scripts. <br>
 After we run the python scripts and popular our bucket we will create parquet files based in this data, for use in our datalake.
 <br><br>
 
