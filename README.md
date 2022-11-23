@@ -40,7 +40,7 @@ With your access key id and secret access key you will configure your AWS, using
 aws configure
 ~~~
 It's also necessary to put default region name and output format, in doubt use `us-east-1` and `json` respectively.
-<br>
+<br><br>
 
 ### AWS S3
 
@@ -53,7 +53,7 @@ In wind-farm-project place the name you want to your bucket, remember that bucke
 aws s3 ls
 ~~~
 And your bucket need to show up in output.
-<br> <br>
+<br><br>
 
 ### AWS Kinesis
 
@@ -131,3 +131,4 @@ aws s3 ls s3://<your_bucket_name>/datalake/
 The output must be parquet files.
 
 It's done, now the data is all in parquet and ready to be use in Athena (or any datalake chosen by you).
+<br><br>
