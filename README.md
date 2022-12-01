@@ -1,11 +1,11 @@
 # wind-farm-project
-My first project in my GitHub and in my study carrier of Data Engineer, hope that you enjoy 😄
+This is my first project in GitHub and in my study carrier of Data Engineer, I hope you enjoy 😄
 
 ## Overview
 
-With python scripts and AWS services I simulated a wind farm and created a data lake with streaming data of power factor, temperature and hydraulic pressure of the wind turbines. <br>
+I've made a simulation of a wind farm using python scripts and with AWS services I've created a data lake with streaming data of power factor, temperature and hydraulic pressure of the wind turbines. <br>
 All AWS services have been used with AWS CLI. <br>
-Below is the diagram of the work done.
+Follow the diagram project.
 
 <img width="500em" src="diagram/png_diagram.png">
 
@@ -14,13 +14,13 @@ Below is the diagram of the work done.
 ### AWS Settings
 
 First of all we need to install the AWS CLI. <br>
-For easily install you can just run the script below in your terminal.
+To install more easily you can just run the script below in your terminal.
 ~~~sh
 sudo apt install awscli
 ~~~
-For more information about the install visit the [documentation of AWS](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html).
+For more information about the install visit [documentation of AWS](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html).
 
-Now that you have the AWS CLI, you need to set up your access key, if you don't have a one yet, you can easily created using.
+Now that you have AWS CLI installed, you need to set up your access key, if you don't have one yet, you can easily create using.
 ~~~sh
 aws iam create-access-key
 ~~~
