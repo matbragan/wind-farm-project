@@ -44,11 +44,11 @@ It's also necessary to put default region name and output format, in doubt use `
 
 ### AWS S3
 
-To create the streaming data we need one bucket in S3 first, you can create a new bucket using.
+To create the streaming data we need first one bucket in S3, you can create a new bucket using.
 ~~~sh
 aws s3 mb s3://wind-farm-project
 ~~~
-In wind-farm-project place the name you want to your bucket, remember that buckets have a unique names, so if you try one name existing, you will need change the name, for sure that your bucket has created using.
+In wind-farm-project put the name you want to your bucket, remembering that buckets have unique names, so if you try one existing name, you need to change the name, to make sure your bucket was created, use.
 ~~~sh
 aws s3 ls
 ~~~
