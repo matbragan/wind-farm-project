@@ -57,27 +57,29 @@ And your bucket need to show up in output.
 
 ### AWS Kinesis
 
-Now we start configuring the streaming data with Kinesis. <br>
-First use the command below to create the stream in kinesis.
+Now it's time to configure the streaming data with Kinesis. <br>
+First use the command below to create the stream in Kinesis.
 ~~~sh
 aws kinesis create-stream --stream-name wind_farm_project
 ~~~
-You now can view the describe of kinesis stream using.
+Now you can view the describe of your Kinesis Data Stream using.
 ~~~sh
 aws kinesis describe-stream-summary --stream-name wind_farm_project
 ~~~
-Now that we have the streaming data we need the data deliverer, for deliver this data in our bucket in S3. <br>
-We will make this using the Kinesis Firehose. <br>
-But to do this we need create a role in IAM with needs permissions. With file trustPolicyFirehose.json avaible in this repository use the command below.
+With our data stream created, we need create the data delivery stream, basically the data delivery will be responsible for delivering all data created by data stream, that in our case will be delivered to s3, specifically for the previously created bucket. <br>
+We're going to do this using Kinesis Firehose. <br>
+But to do this it's necessary a role in IAM. With file trustPolicyFirehose.json avaible in this repository use the command below.
 ~~~sh
 aws iam create-role --role-name firehoseAdminRole --assume-role-policy-document file://trustPolicyFirehose.json
 aws iam attach-role-policy --role-name firehoseAdminRole --policy-arn arn:aws:iam::aws:policy/AdministratorAccess
 ~~~
-So now we have the necessary role for use the Kinesis Firehose, using the command below we will create the Firehose.
+To make our life easier, we give admin permission to new role created.
+
+With role created, we can finally create the Kinesis Firehose, our data delivery stream.
 ~~~sh
 aws firehose create-delivery-stream --delivery-stream-name wind_farm_project --delivery-stream-type KinesisStreamAsSource --kinesis-stream-source-configuration KinesisStreamARN=arn:aws:kinesis:<your_region_name>:<your_account_id>:stream/wind_farm_project,RoleARN=arn:aws:iam::<your_account_id>:role/firehoseAdminRole --s3-destination-configuration BucketARN=arn:aws:s3:::<your_bucket_name>,RoleARN=arn:aws:iam::<your_account_id>:role/firehoseAdminRole,BufferingHints={IntervalInSeconds=60}
 ~~~
-If you are having error in this command, make sure that your ARN's are right.
+If you're having error in this command, make sure that your ARN's are right.
 <br><br>
 
 ### Python scripts
