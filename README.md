@@ -84,15 +84,15 @@ If you're having error in this command, make sure that your ARN's are right.
 
 ### Python scripts
 
-Now it'is time to run the python scripts who are in this repository, they will population our bucket with information about the wind turbines in wind farm. <br>
+Now it'is time to run the python scripts who are in this repository, they will populate our bucket with informations - power factor, temperature and hydraulic pressure - about the wind turbines in wind farm. <br>
 `boto3` is necessary to run the scripts. <br>
-After we run the python scripts and popular our bucket we will create parquet files based in this data, for use in our datalake.
+After we run the python scripts and populate our bucket, will be necessary create parquet files based in this data, for use in our datalake.
 <br><br>
 
 ### AWS Glue
 
 With Glue we will create our data catalog and parquet files. <br>
-First we need create a database.
+First we need create a database in Glue.
 ~~~sh
 aws glue create-database --database-input Name=wind_farm_project
 ~~~
