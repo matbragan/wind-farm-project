@@ -3,8 +3,8 @@ This is my first project in GitHub and in my study carrier of Data Engineer, I h
 
 ## Overview
 
-I've made a simulation of a wind farm using python scripts and with AWS services I've created a data lake with streaming data of power factor, temperature and hydraulic pressure of the wind turbines. <br>
-All AWS services have been used with AWS CLI. <br>
+I've made a simulation of a wind farm using python scripts and with AWS I've created a data lake with streaming data of power factor, temperature and hydraulic pressure of the wind turbines. <br>
+All AWS have been used with AWS CLI. <br>
 Follow the diagram project.
 
 <img width="500em" src="diagram/png_diagram.png">
