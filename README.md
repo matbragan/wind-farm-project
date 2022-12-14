@@ -1,5 +1,5 @@
 # wind-farm-project
-This is my first project in GitHub and in my study carrier of Data Engineer, I hope you enjoy 😄
+This is my first project in GitHub and in my study carrier of Data Engineer, I hope you enjoy 😄.
 <br>
 
 ## Overview
