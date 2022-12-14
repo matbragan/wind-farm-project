@@ -1,5 +1,6 @@
 # wind-farm-project
 This is my first project in GitHub and in my study carrier of Data Engineer, I hope you enjoy 😄
+<br>
 
 ## Overview
 
@@ -8,6 +9,7 @@ All AWS have been used with AWS CLI. <br>
 Follow the diagram project.
 
 <img width="500em" src="diagram/png_diagram.png">
+<br>
 
 ## Step by step
 
