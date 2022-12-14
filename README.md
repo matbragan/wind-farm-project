@@ -79,7 +79,10 @@ To make our life easier, we give admin permission to new role created.
 
 With role created, we can finally create the Kinesis Firehose, our data delivery stream.
 ~~~sh
-aws firehose create-delivery-stream --delivery-stream-name wind_farm_project --delivery-stream-type KinesisStreamAsSource --kinesis-stream-source-configuration KinesisStreamARN=arn:aws:kinesis:<your_region_name>:<your_account_id>:stream/wind_farm_project,RoleARN=arn:aws:iam::<your_account_id>:role/firehoseAdminRole --s3-destination-configuration BucketARN=arn:aws:s3:::<your_bucket_name>,RoleARN=arn:aws:iam::<your_account_id>:role/firehoseAdminRole,BufferingHints={IntervalInSeconds=60}
+aws firehose create-delivery-stream --delivery-stream-name wind_farm_project 
+--delivery-stream-type KinesisStreamAsSource --kinesis-stream-source-configuration 
+KinesisStreamARN=arn:aws:kinesis:<your_region_name>:<your_account_id>:stream/wind_farm_project,RoleARN=arn:aws:iam::<your_account_id>:role/firehoseAdminRole 
+--s3-destination-configuration BucketARN=arn:aws:s3:::<your_bucket_name>,RoleARN=arn:aws:iam::<your_account_id>:role/firehoseAdminRole,BufferingHints={IntervalInSeconds=60}
 ~~~
 If you're having error in this command, make sure that your ARN's are right.
 <br><br>
