@@ -85,7 +85,7 @@ If you're having error in this command, make sure that your ARN's are right.
 ### Python scripts
 
 Now it'is time to run the python scripts who are in this repository, they will populate our bucket with informations - power factor, temperature and hydraulic pressure - about the wind turbines in wind farm. <br>
-`boto3` is necessary to run the scripts. <br>
+`boto3` is necessary to run the scripts, so if you yet don't have it in your computer it's time to install. <br>
 After we run the python scripts and populate our bucket, will be necessary create parquet files based in this data, for use in our datalake.
 <br><br>
 
@@ -101,7 +101,7 @@ So now we need the Glue crawler for create our data catalog, but to do this we n
 aws iam create-role --role-name glueAdminRole --assume-role-policy-document file://trustPolicyGlue.json
 aws iam attach-role-policy --role-name glueAdminRole --policy-arn arn:aws:iam::aws:policy/AdministratorAccess
 ~~~
-Using the trustPolicyGlue.json which is in the repository.
+Using the trustPolicyGlue.json which is in this repository.
 
 Now we can create the crawler.
 ~~~sh
@@ -115,12 +115,12 @@ For view your crawler and status of running, you can run the command.
 ~~~sh
 aws glue get-crawler --name wind_farm_project
 ~~~
-So now we finally will create our parquet files, so we can use in datalake. <br>
+So now we finally will create our parquet files, for later use in datalake. <br>
 For create our parquet files, we need create a job in Glue using.
 ~~~sh
 aws glue create-job --name wind_farm_project --role arn:aws:iam::<your_account_id>:role/glueAdminRole --command Name=glueetl,ScriptLocation=s3://<your_bucket_name>/script/datalake,PythonVersion=3 --glue-version 3.0 --code-gen-configuration-nodes file://configurationNodesJob.json
 ~~~
-Using the configurationNodesJob.json which is in the repository. <br>
+Using the configurationNodesJob.json which is in this repository. <br>
 With the job created it'is time to run it.
 ~~~sh
 aws glue start-job-run --job-name wind_farm_project
