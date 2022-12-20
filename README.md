@@ -60,74 +60,73 @@ And your bucket need to show up in output.
 ### AWS Kinesis
 
 Now it's time to configure the streaming data with Kinesis. <br>
-First use the command below to create the stream in Kinesis.
+Firstly use the command below to create the stream in Kinesis.
 ~~~sh
 aws kinesis create-stream --stream-name wind_farm_project
 ~~~
-Now you can view the describe of your Kinesis Data Stream using.
+Now you can view the description of your Kinesis Data Stream using.
 ~~~sh
 aws kinesis describe-stream-summary --stream-name wind_farm_project
 ~~~
-With our data stream created, we need create the data delivery stream, basically the data delivery will be responsible for delivering all data created by data stream, that in our case will be delivered to s3, specifically for the previously created bucket. <br>
-We're going to do this using Kinesis Firehose. <br>
-But to do this it's necessary a role in IAM. With file trustPolicyFirehose.json avaible in this repository use the command below.
+After the data stream is ready, the data delivery stream must be created. Basically the data delivery will be responsible for delivering all data created by data stream, that in this scenario will be delivered to s3, specifically for the previously created bucket.
+
+Let's do this using Kinesis Firehose, but to use this it's necessary the creation of a Role in IAM, that can be created using the file trustPolicyFirehose.json, avaible in this repository.
 ~~~sh
 aws iam create-role --role-name firehoseAdminRole --assume-role-policy-document file://trustPolicyFirehose.json
 aws iam attach-role-policy --role-name firehoseAdminRole --policy-arn arn:aws:iam::aws:policy/AdministratorAccess
 ~~~
-To make our life easier, we give admin permission to new role created.
-
-With role created, we can finally create the Kinesis Firehose, our data delivery stream.
+With the Role ready, we can finally create the Kinesis Firehose, our data delivery stream.
 ~~~sh
 aws firehose create-delivery-stream --delivery-stream-name wind_farm_project --delivery-stream-type KinesisStreamAsSource --kinesis-stream-source-configuration KinesisStreamARN=arn:aws:kinesis:<your_region_name>:<your_account_id>:stream/wind_farm_project,RoleARN=arn:aws:iam::<your_account_id>:role/firehoseAdminRole --s3-destination-configuration BucketARN=arn:aws:s3:::<your_bucket_name>,RoleARN=arn:aws:iam::<your_account_id>:role/firehoseAdminRole,BufferingHints={IntervalInSeconds=60}
 ~~~
-If you're having error in this command, make sure that your ARN's are right.
+If it appears any errors in this command, make sure that your ARN's are right.
 <br><br>
 
 ### Python scripts
 
-Now it'is time to run the python scripts who are in this repository, they will populate our bucket with informations - power factor, temperature and hydraulic pressure - about the wind turbines in wind farm. <br>
-`boto3` is necessary to run the scripts, so if you yet don't have it in your computer it's time to install. <br>
-After we run the python scripts and populate our bucket, will be necessary create parquet files based in this data, for use in our datalake.
+Now it'is time to run the python scripts that are in this repository, they will populate our bucket with informations - power factor, temperature and hydraulic pressure - about the wind turbines in the wind farm. <br>
+`boto3` is necessary to run the scripts, so if you don't have it yet in your computer it's time to install. <br>
+After we run the python scripts and populate our bucket, it will be necessary to generate parquet files based in this data, to use in our datalake.
 <br><br>
 
 ### AWS Glue
 
-With Glue we will create our data catalog and parquet files. <br>
-First we need create a database in Glue.
+Using Glue we will create our data catalog and parquet files. <br>
+First we need to create a database in Glue.
 ~~~sh
 aws glue create-database --database-input Name=wind_farm_project
 ~~~
-So now we need the Glue crawler for create our data catalog, but to do this we need create a role with this permission, so, run the command.
+So now we need the Glue Crawler to create our data catalog, but to do this we need to create a role with this permission, so run the command bellow.
 ~~~sh
 aws iam create-role --role-name glueAdminRole --assume-role-policy-document file://trustPolicyGlue.json
 aws iam attach-role-policy --role-name glueAdminRole --policy-arn arn:aws:iam::aws:policy/AdministratorAccess
 ~~~
 Using the trustPolicyGlue.json which is in this repository.
 
-Now we can create the crawler.
+Now we can create the Crawler.
 ~~~sh
 aws glue create-crawler --name wind_farm_project --role arn:aws:iam::<your_account_id>:role/glueAdminRole --database-name wind_farm_project --targets S3Targets={Path=s3://<your_bucket_name>}
 ~~~
-With the crawler created we need to run it.
+With the Crawler ready we need to run it.
 ~~~sh
 aws glue start-crawler --name wind_farm_project
 ~~~
-For view your crawler and status of running, you can run the command.
+To view your Crawler and the status of running, you can run the command.
 ~~~sh
 aws glue get-crawler --name wind_farm_project
 ~~~
-So now we finally will create our parquet files, for later use in datalake. <br>
-For create our parquet files, we need create a job in Glue using.
+So now we will finally generate our parquet files, to use later in datalake. <br>
+To generate our parquet files, we need creating a Job in Glue using.
 ~~~sh
 aws glue create-job --name wind_farm_project --role arn:aws:iam::<your_account_id>:role/glueAdminRole --command Name=glueetl,ScriptLocation=s3://<your_bucket_name>/script/datalake,PythonVersion=3 --glue-version 3.0 --code-gen-configuration-nodes file://configurationNodesJob.json
 ~~~
 Using the configurationNodesJob.json which is in this repository. <br>
-With the job created it'is time to run it.
+
+After the job is created it'is time to run it.
 ~~~sh
 aws glue start-job-run --job-name wind_farm_project
 ~~~
-You can view your running using.
+You can view your running status using.
 ~~~sh
 aws glue get-job-runs --job-name wind_farm_project
 ~~~
@@ -138,5 +137,5 @@ aws s3 ls s3://<your_bucket_name>/datalake/
 ~~~
 The output must be parquet files.
 
-It's done, now the data is all in parquet and ready to be use in Athena (or any datalake chosen by you).
+It's done, now the data is all in parquet and ready to be used in Athena (or any datalake chosen by you).
 <br><br>
